@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:rocm
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    environment:
+      - HSA_OVERRIDE_GFX_VERSION=10.3.0
+      - OLLAMA_HOST=0.0.0.0
+
+  aider:
+    image: paulgauthier/aider-full
+    container_name: aider
+    # stdin_open e tty são obrigatórios para ferramentas CLI interativas no Docker
+    stdin_open: true
+    tty: true
+    environment:
+      - OLLAMA_API_BASE=http://ollama:11434
+    volumes:
+      # Mapeia o diretório atual do host para /app dentro do contêiner
+      - .:/app
+    working_dir: /app
+    depends_on:
+      - ollama
+
+volumes:
+  ollama_data:
+    name: ollama_data
