@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if action == 'create' %}Create{% else %}Update{% endif %} Item</title>
+</head>
+<body>
+    <h1>{% if action == 'create' %}Create{% else %}Update{% endif %} Item</h1>
+    <form method="post">
+        {% if action == 'update' %}
+            <input type="hidden" name="id" value="{{ item.id }}">
+        {% endif %}
+        <label for="titulo">Title:</label>
+        <input type="text" id="titulo" name="titulo" value="{% if action == 'update' %}{{ item.titulo }}{% endif %}" required><br><br>
+        <label for="descricao">Description:</label>
+        <textarea id="descricao" name="descricao" required>{% if action == 'update' %}{{ item.descricao }}{% endif %}</textarea><br><br>
+        <button type="submit">{% if action == 'create' %}Create{% else %}Update{% endif %}</button>
+    </form>
+    <a href="{{ url_for('index') }}">Back to List</a>
+</body>
+</html>

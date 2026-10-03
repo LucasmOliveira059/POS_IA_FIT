@@ -1,0 +1,2 @@
+
+This setup includes a basic CRUD interface with SQLite as the database and Flask-SQLAlchemy for ORM. The application is structured modularly with separate directories for models, controllers, templates, and tests.
