@@ -21,3 +21,5 @@ This is a basic CRUD application built using Flask. It serves as a portfolio bas
 
 ## Running the Server
 To run the Flask server, execute the following command:
+
+python app.py
